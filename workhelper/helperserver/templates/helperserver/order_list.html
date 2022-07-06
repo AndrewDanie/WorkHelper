@@ -1,0 +1,18 @@
+{% extends 'helperserver/base.html' %}
+
+{% block content %}
+<div>
+    {% for order in orders %}
+        <h5>Имя клиента:</h5><h4>{{ order.client_name }}</h4>
+        <h5>Название устройства:</h5><h4>{{ order.device_type }}</h4>
+        <h5>Начало работы:</h5><h4>{{ order.date_start }}</h4>
+        <h5>Выявленные дефекты:</h5><h4>{{ order.defect }}</h4>
+        <h5>Сделанная работа:</h5><h4>{{ order.completed_work_text | linebreaksbr }}</h4>
+        <h5>Закупленные запчасти:</h5><h4>{{ order.spare_parts_text }}</h4>
+        <h5>Приход:</h5><h4>{{ order.income }}</h4>
+        <h5>Расход:</h5><h4>{{ order.consumption }}</h4>
+        <h5>Итого:</h5><h4>{{ order.total }}</h4>
+        <h5>дата окончания работ:</h5><h4>{{ order.date_finish }}</h4>
+    {% endfor %}
+</div>
+{% endblock %}
