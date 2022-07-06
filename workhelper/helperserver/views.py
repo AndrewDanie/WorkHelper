@@ -2,13 +2,22 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Order
 from .forms import Order_form
 
+
 def order_list(request):
     orders = Order.objects.all()
     return render(request, 'helperserver/order_list.html', {'orders': orders})
 
+
 def order_detail(request, pk):
-    order = get_object_or_404(Order, pk=pk)
-    return render(request, 'helperserver/order_details.html', {'order': order})
+    if request.method == 'POST':
+        print('Post!')
+        if request.POST.get('delete_button'):
+            print('delete!')
+            return delete_order(request, pk)
+    else:
+        order = get_object_or_404(Order, pk=pk)
+        return render(request, 'helperserver/order_details.html', {'order': order})
+
 
 def create_new_order(request):
     if request.method == 'POST':
@@ -21,3 +30,9 @@ def create_new_order(request):
     else:
         form = Order_form()
     return render(request, 'helperserver/order_editor.html', {'form': form})
+
+
+def delete_order(request, pk):
+    order = Order.objects.get(pk=pk)
+    order.delete()
+    return render(request, 'helperserver/has_deleted_page.html')

@@ -12,4 +12,7 @@
     <h5>Итого:</h5><h4>{{ order.total }}</h4>
     <h5>Дата окончания работ:</h5><h4>{{ order.date_finish }}</h4>
     <p style="font-size: 24px"><a href="/">Назад</a> </p>
+    <form method="POST" class="order-form">{% csrf_token %}
+        <button type="submit" class="save btn btn-default" name="delete_button" value="click">Удалить заказ</button>
+    </form>
 {% endblock %}
