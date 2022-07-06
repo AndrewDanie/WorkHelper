@@ -10,9 +10,7 @@ def order_list(request):
 
 def order_detail(request, pk):
     if request.method == 'POST':
-        print('Post!')
         if request.POST.get('delete_button'):
-            print('delete!')
             return delete_order(request, pk)
     else:
         order = get_object_or_404(Order, pk=pk)

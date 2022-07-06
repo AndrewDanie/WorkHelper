@@ -15,7 +15,6 @@ class Order(models.Model):
     consumption = models.IntegerField(verbose_name='Расход')
     total = models.IntegerField(verbose_name='Итого')
     date_finish = models.DateField(verbose_name='Дата окончания работ', blank=True, null=True)
-
     def __str__(self):
         return self.device_type
 

@@ -7,9 +7,13 @@
     </p>
 </div>
 <div>
+    <script>var counter = 0</script>
     {% for order in orders %}
+        <script>counter += 1</script>
         <p style="font-size: 24px">
-            <a href="{% url 'order_detail' pk=order.pk %}"> {{ order.pk }}. {{ order.client_name }}: {{ order.device_type }}</a>
+            <a href="{% url 'order_detail' pk=order.pk %}">
+                <script>document.write(counter)</script>. {{ order.client_name }}: {{ order.device_type }}
+            </a>
         </p>
     {% endfor %}
 </div>
