@@ -1,0 +1,10 @@
+{% extends 'helperserver/base.html' %}
+
+{% block content %}
+    <h1>Новый заказ</h1>
+    <form method="POST" class="order-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+    <p style="font-size: 24px"><a href="/">Назад</a> </p>
+{% endblock %}

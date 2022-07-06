@@ -2,6 +2,11 @@
 
 {% block content %}
 <div>
+    <p style="font-size: 30px">
+        <a href="/create_new_order/">+ Добавить новый заказ</a>
+    </p>
+</div>
+<div>
     {% for order in orders %}
         <p style="font-size: 24px">
             <a href="{% url 'order_detail' pk=order.pk %}"> {{ order.pk }}. {{ order.client_name }}: {{ order.device_type }}</a>
