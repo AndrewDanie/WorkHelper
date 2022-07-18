@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import *
 from .forms import *
-from django.db.models import F
+from django.db.models import F, Sum
 
 def order_list(request):
     orders = Order.objects.all()
@@ -12,7 +12,24 @@ def order_detail(request, pk):
 
     order = get_object_or_404(Order, pk=pk)
     work = Work.objects.filter(order__pk=pk)
-    parts = Spare_parts.objects.filter(order__pk=pk)
+    parts = Spare_part.objects.filter(order__pk=pk)
+
+    income = Income.objects.values('amount').filter(order__pk=pk).aggregate(Sum('amount'))['amount__sum']
+    consumption_work = work.aggregate(Sum('price'))['price__sum']
+    consumption_parts = parts.aggregate(Sum('price'))['price__sum']
+    if income is None:
+        income = 0
+    if consumption_work is None:
+        consumption_work = 0
+    if consumption_parts is None:
+        consumption_parts = 0
+    consumption = consumption_work + consumption_parts
+    total = income - consumption
+    order.__dict__['income'] = income
+    order.__dict__['consumption'] = consumption
+    order.__dict__['total'] = total
+
+
     F_work_form = False
     F_parts_form = False
     work_form = Work_form()

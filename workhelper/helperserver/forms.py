@@ -16,5 +16,5 @@ class Work_form(forms.ModelForm):
 
 class Spare_parts_form(forms.ModelForm):
     class Meta:
-        model = Spare_parts
+        model = Spare_part
         fields = ('description', 'price')
