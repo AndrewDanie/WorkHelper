@@ -4,7 +4,32 @@
     <h5>Имя клиента:</h5><h4>{{ order.client_name }}</h4>
     <h5>Название устройства:</h5><h4>{{ order.device_type }}</h4>
     <h5>Начало работы:</h5><h4>{{ order.date_start }}</h4>
-    <h5>Выявленные дефекты:</h5><h4>{{ order.defect }}</h4>
+    <h5>Выявленные дефекты:</h5>
+    <p><ul>
+    {% for w in work %}
+        <li>{{ w.description }} {{ w.price }}</li>
+    {% endfor %}
+    {% if not F_work_form %}
+        <form method="POST" class="order-form">{% csrf_token %}
+            <button type="submit"
+                    class="save btn btn-default"
+                    name="add_work_button"
+                    value="click">
+                Добавить работу
+            </button>
+        </form>
+    {% else %}
+        <form method="POST" class="order-form">{% csrf_token %}
+            {{ work_form.as_p }}
+            <button type="submit"
+                    class="save btn btn-default"
+                    name="save_work_button"
+                    value="click">
+                Сохранить
+            </button>
+        </form>
+    {% endif %}
+    </ul></p>
 
     <h5>Сделанная работа:</h5>
     <p><ul>
